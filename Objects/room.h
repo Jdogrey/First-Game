@@ -34,6 +34,15 @@ class Room {
     void SetEast(std::shared_ptr<Room> room) { east = room; }
     void SetNorth(std::shared_ptr<Room> room) { north = room; }
     void SetSouth(std::shared_ptr<Room> room) { south = room; }
+    std::shared_ptr<Room> GetWest() const { return west; }
+    std::shared_ptr<Room> GetEast() const { return east; }
+    std::shared_ptr<Room> GetNorth() const { return north; }
+    std::shared_ptr<Room> GetSouth() const { return south; }
+
+    void PrintInfo() const {
+        std::cout << "Room ID: " << id << ", Name: " << name << ", Type: " << getType() << std::endl;
+    }
+    void GameOutput() const;
 };
 
 class PlaceholderRoom : public Room {
@@ -107,6 +116,20 @@ class HallRoom : public Room {
     HallRoom(int id, const std::string& name, Room * north, Room * east, Room * south, Room * west)
         : Room(id, name, north, east, south, west) {}
     std::string getType() const override { return "Hall"; }
+};
+
+class CrossRoom : public Room {
+    public:
+    CrossRoom() : Room() {}
+    CrossRoom(int id, const std::string& name) : Room(id, name) {
+        SetNorth(std::make_shared<PlaceholderRoom>());
+        SetEast(std::make_shared<PlaceholderRoom>());
+        SetSouth(std::make_shared<PlaceholderRoom>());
+        SetWest(std::make_shared<PlaceholderRoom>());
+    }
+    CrossRoom(int id, const std::string& name, Room * north, Room * east, Room * south, Room * west)
+        : Room(id, name, north, east, south, west) {}
+    std::string getType() const override { return "Cross"; }
 };
 
 #endif // ROOM_H

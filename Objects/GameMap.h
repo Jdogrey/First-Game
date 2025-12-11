@@ -1,3 +1,6 @@
+#ifndef GAMEMAP_H
+#define GAMEMAP_H
+
 #include <unordered_map>
 #include <memory>
 
@@ -25,4 +28,9 @@ class GameMap {
     GameMap(std::shared_ptr<Room> startingRoom) {
         rooms[{0, 0}] = startingRoom;
     }
+    void AddRoom(int x, int y, std::shared_ptr<Room> room);
+    std::shared_ptr<Room> GetRoom(int x, int y) const;
+    void SetupRoom(int x, int y, std::shared_ptr<Room> room);
 };
+
+#endif // GAMEMAP_H
