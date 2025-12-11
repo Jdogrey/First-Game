@@ -1,6 +1,12 @@
 #include <iostream>
+#include <memory>
 
 #include "Objects/room.h"
+#include "Objects/GameMap.h"
+
+using namespace std;
+
+bool test(); 
 
 int main() {
     test();
@@ -8,6 +14,8 @@ int main() {
 }
 
 bool test() {
-    Room * test = TRoom(1, "Test Room", NORTH);
+    Room * test = new TRoom(1, "Test Room", NORTH);
+    shared_ptr<Room> startingRoom = make_shared<StartingRoom>(0, "Starting Room");
+    GameMap gameMap(startingRoom);
     return true;
 }

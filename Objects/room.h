@@ -1,4 +1,8 @@
+#ifndef ROOM_H
+#define ROOM_H
+
 #include <string>
+#include <memory>
 
 enum Orientation {
     NORTH,
@@ -36,6 +40,13 @@ class PlaceholderRoom : public Room {
     public:
     PlaceholderRoom() : Room() {}
     std::string getType() const override { return "Placeholder"; }
+};
+
+class StartingRoom : public Room {
+    public:
+    StartingRoom() : Room() {}
+    StartingRoom(int id, const std::string& name) : Room(id, name) {}
+    std::string getType() const override { return "Starting"; }
 };
 
 class TRoom : public Room {
@@ -97,3 +108,5 @@ class HallRoom : public Room {
         : Room(id, name, north, east, south, west) {}
     std::string getType() const override { return "Hall"; }
 };
+
+#endif // ROOM_H

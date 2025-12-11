@@ -6,6 +6,9 @@
 struct Coord {
     int x;
     int y;
+    bool operator==(const Coord& other) const noexcept {
+        return x == other.x && y == other.y;
+    }
 };
 
 struct CoordHash {
@@ -16,4 +19,10 @@ struct CoordHash {
 
 class GameMap {
     std::unordered_map<Coord, std::shared_ptr<Room>, CoordHash> rooms;
+
+    public:
+    
+    GameMap(std::shared_ptr<Room> startingRoom) {
+        rooms[{0, 0}] = startingRoom;
+    }
 };
