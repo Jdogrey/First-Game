@@ -6,6 +6,11 @@
 
 #include "room.h"
 
+/*  Notes for personal memory:
+    West is lower x, East is higher x
+    South is lower y, North is higher y
+*/
+
 struct Coord {
     int x;
     int y;
