@@ -78,7 +78,7 @@ void PlaceholderRoom::GameOutput() const {
 }
 
 void StartingRoom::GameOutput() const {
-    cout << "You are in the starting room. This room will always be the same empty 4 way room." << endl;
+    cout << "You are in the starting room. This room will always be the same empty 4 way hall." << endl;
     Room::GameOutput();
 }
 
