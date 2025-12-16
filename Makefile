@@ -22,7 +22,7 @@ game.exe: $(OBJS)
 
 loader.o: loader.cpp
 main.o: main.cpp Objects/room.h Objects/GameMap.h Objects/room.h
-Objects/GameMap.o: Objects/GameMap.cpp
+Objects/GameMap.o: Objects/GameMap.cpp Objects/GameMap.h Objects/room.h
 Objects/room.o: Objects/room.cpp Objects/room.h
 json11/json11.o: json11/json11.cpp json11/json11.hpp
 
