@@ -27,8 +27,7 @@ class Room {
 
     Room() : id(-1), name("Placeholder"), north(nullptr), east(nullptr), south(nullptr), west(nullptr) {}
     Room(int id, const std::string& name) : id(id), name(name), north(nullptr), east(nullptr), south(nullptr), west(nullptr) {}
-    Room(int id, const std::string& name, Room * north, Room * east, Room * south, Room * west)
-        : id(id), name(name),  north(north), east(east), south(south), west(west) {}
+    virtual ~Room() = default;
     int getId() const { return id; }
     std::string getName() const { return name; }
     virtual std::string getType() const = 0;
@@ -40,12 +39,6 @@ class Room {
     std::shared_ptr<Room> GetEast() const { return east; }
     std::shared_ptr<Room> GetNorth() const { return north; }
     std::shared_ptr<Room> GetSouth() const { return south; }
-
-    // PrintInfo for debugging
-
-    void PrintInfo() const {
-        std::cout << "Room ID: " << id << ", Name: " << name << ", Type: " << getType() << std::endl;
-    }
 
     // Outputs for gameplay
 
@@ -102,8 +95,6 @@ class THall : public Room {
                 break;
         }
     }
-    THall(int id, const std::string& name, Room * north, Room * east, Room * south, Room * west)
-        : Room(id, name, north, east, south, west) {}
     std::string getType() const override { return "T-Hall"; }
 
     void GameOutput() const override;
@@ -113,8 +104,6 @@ class TRoom : public THall {
     public:
     TRoom() : THall() {}
     TRoom(int id, const std::string& name, Orientation ori) : THall(id, name, ori) {}
-    TRoom(int id, const std::string& name, Room * north, Room * east, Room * south, Room * west)
-        : THall(id, name, north, east, south, west) {}
     std::string getType() const override { return "T-Room"; }
 
     void GameOutput() const override;
@@ -143,8 +132,6 @@ class HallRoom : public Room {
                 break;
         }
     }
-    HallRoom(int id, const std::string& name, Room * north, Room * east, Room * south, Room * west)
-        : Room(id, name, north, east, south, west) {}
     std::string getType() const override { return "Hall"; }
 
     void GameOutput() const override;
@@ -154,8 +141,6 @@ class TwoEntranceRoom : public HallRoom {
     public:
     TwoEntranceRoom() : HallRoom() {}
     TwoEntranceRoom(int id, const std::string& name, Orientation ori) : HallRoom(id, name, ori) {}
-    TwoEntranceRoom(int id, const std::string& name, Room * north, Room * east, Room * south, Room * west)
-        : HallRoom(id, name, north, east, south, west) {}
     std::string getType() const override { return "Two-Entrance"; }
 
     void GameOutput() const override;
@@ -170,8 +155,6 @@ class CrossRoom : public Room {
         SetSouth(std::make_shared<PlaceholderRoom>());
         SetWest(std::make_shared<PlaceholderRoom>());
     }
-    CrossRoom(int id, const std::string& name, Room * north, Room * east, Room * south, Room * west)
-        : Room(id, name, north, east, south, west) {}
     std::string getType() const override { return "Cross"; }
 
     void GameOutput() const override;
@@ -181,8 +164,6 @@ class FourEntranceRoom : public CrossRoom {
     public:
     FourEntranceRoom() : CrossRoom() {}
     FourEntranceRoom(int id, const std::string& name) : CrossRoom(id, name) {}
-    FourEntranceRoom(int id, const std::string& name, Room * north, Room * east, Room * south, Room * west)
-        : CrossRoom(id, name, north, east, south, west) {}
     std::string getType() const override { return "Four-Entrance"; }
 
     void GameOutput() const override;
@@ -232,7 +213,7 @@ class ShopRoom : public DeadEndRoom {
     std::string getType() const override { return "Shop"; }
 
     void GameOutput() const override;
-    void OptionsOutput() const override;
+    //void OptionsOutput() const override;
 };
 
 class BossRoom : public DeadEndRoom {
@@ -242,7 +223,7 @@ class BossRoom : public DeadEndRoom {
     std::string getType() const override { return "Boss"; }
 
     void GameOutput() const override;
-    void OptionsOutput() const override;
+    //void OptionsOutput() const override;
 };
 
 #endif // ROOM_H

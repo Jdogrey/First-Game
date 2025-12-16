@@ -12,28 +12,28 @@ void Room::GameOutput() const {
             cout << ", ";
         }
         first = false;
-        cout << "North" << endl;
+        cout << "North";
     }
     if(east != nullptr) {
         if(!first) { 
             cout << ", ";
         }
         first = false;
-        cout << "East" << endl;
+        cout << "East";
     }
     if(south != nullptr) {
         if(!first) { 
             cout << ", ";
         }
         first = false;
-        cout << "South" << endl;
+        cout << "South";
     }
     if(west != nullptr) {
         if(!first) { 
             cout << ", ";
         }
         first = false;
-        cout << "West" << endl;
+        cout << "West";
     }
     cout << "." << endl;
 }
@@ -119,5 +119,19 @@ void TwoEntranceRoom::GameOutput() const {
 
 void DeadEndRoom::GameOutput() const {
     cout << "You are in a room with 1 exit." << endl;
+    Room::GameOutput();
+}
+
+
+//PLACEHOLDERS
+
+
+void ShopRoom::GameOutput() const {
+    cout << "You are in a shop. You can buy items here." << endl;
+    Room::GameOutput();
+}
+
+void BossRoom::GameOutput() const {
+    cout << "You are in the boss room. Prepare for a tough fight!" << endl;
     Room::GameOutput();
 }

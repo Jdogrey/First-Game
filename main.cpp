@@ -15,6 +15,7 @@ int main() {
 
 bool test() {
     Room * test = new TRoom(1, "Test Room", NORTH);
+    test->GameOutput();
     shared_ptr<Room> startingRoom = make_shared<StartingRoom>(0, "Starting Room");
     GameMap gameMap(startingRoom);
     return true;
