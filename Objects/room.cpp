@@ -112,6 +112,16 @@ void FourEntranceRoom::GameOutput() const {
     Room::GameOutput();
 }
 
+void BendHall::GameOutput() const {
+    cout << "You are at a bend in the hall." << endl;
+    Room::GameOutput();
+}
+
+void BendRoom::GameOutput() const {
+    cout << "You are in a room with 2 exits." << endl;
+    Room::GameOutput();
+}
+
 void TwoEntranceRoom::GameOutput() const {
     cout << "You are in a room with 2 exits." << endl;
     Room::GameOutput();

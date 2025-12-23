@@ -20,7 +20,7 @@ struct Coord {
 };
 
 struct CoordHash {
-    std::size_t operator()(const Coord& c) const {
+    std::size_t operator()(const Coord& c) const noexcept {
         return std::hash<int>()(c.x) ^ (std::hash<int>()(c.y) << 1);
     }
 };
@@ -30,10 +30,12 @@ class GameMap {
 
     public:
     
-    GameMap(const std::shared_ptr<Room>& startingRoom) {
-        rooms[{0, 0}] = startingRoom;
-    }
     void AddRoom(int x, int y, const std::shared_ptr<Room>& room);
+
+    GameMap(const std::shared_ptr<Room>& startingRoom) {
+        AddRoom(0, 0, startingRoom);
+    }
+
     std::shared_ptr<Room> GetRoom(int x, int y) const;
     void SetupRoom(int x, int y, const std::shared_ptr<Room>& room);
 };

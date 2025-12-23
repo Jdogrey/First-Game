@@ -5,11 +5,13 @@
 
 #include "GameMap.h"
 
+using namespace std;
+
 void GameMap::AddRoom(int x, int y, const std::shared_ptr<Room>& room) {
     rooms[{x, y}] = room;
 }
 
-std::shared_ptr<Room> GameMap::GetRoom(int x, int y) const {
+shared_ptr<Room> GameMap::GetRoom(int x, int y) const {
     auto it = rooms.find({x, y});
     if (it != rooms.end()) {
         return it->second;
@@ -19,26 +21,36 @@ std::shared_ptr<Room> GameMap::GetRoom(int x, int y) const {
 
 void GameMap::SetupRoom(int x, int y, const std::shared_ptr<Room>& room) {
     // Set adjacent rooms
-    auto northRoom = GetRoom(x, y + 1);
-    auto eastRoom = GetRoom(x + 1, y);
-    auto southRoom = GetRoom(x, y - 1);
-    auto westRoom = GetRoom(x - 1, y);
+
+    AddRoom(x, y, room);
+
+    shared_ptr<Room> northRoom = GetRoom(x, y + 1);
+    shared_ptr<Room> eastRoom = GetRoom(x + 1, y);
+    shared_ptr<Room> southRoom = GetRoom(x, y - 1);
+    shared_ptr<Room> westRoom = GetRoom(x - 1, y);
 
     if (northRoom) {
-        room->SetNorth(northRoom);
-        northRoom->SetSouth(room);
+        if(northRoom->GetSouth() != nullptr) {
+            room->SetNorth(northRoom);
+            northRoom->SetSouth(room);
+        }
     }
     if (eastRoom) {
-        room->SetEast(eastRoom);
-        eastRoom->SetWest(room);
+        if(eastRoom->GetWest() != nullptr) {
+            room->SetEast(eastRoom);
+            eastRoom->SetWest(room);
+        }
     }
     if (southRoom) {
-        room->SetSouth(southRoom);
-        southRoom->SetNorth(room);
+        if(southRoom->GetNorth() != nullptr) {
+            room->SetSouth(southRoom);
+            southRoom->SetNorth(room);
+        }
     }
     if (westRoom) {
-        room->SetWest(westRoom);
-        westRoom->SetEast(room);
+        if(westRoom->GetEast() != nullptr) {
+            room->SetWest(westRoom);
+            westRoom->SetEast(room);
+        }
     }
-    AddRoom(x, y, room);
 }
