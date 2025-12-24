@@ -2,10 +2,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug game (MinGW)",
+            "name": "Debug game (MinGW) (Working)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/game.exe",
+            "program": "${workspaceFolder}/main.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

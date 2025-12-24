@@ -3,6 +3,7 @@
 
 #include "Objects/room.h"
 #include "Objects/GameMap.h"
+#include "gameLoop.h"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ bool test();
 
 int main() {
     test();
+    lobbyLoop();
     return 0;
 }
 

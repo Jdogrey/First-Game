@@ -9,9 +9,11 @@ using namespace std;
 
 bool takeInput(shared_ptr<Room>& room) {
     string choice;
+    cout << "\n";
     room->GameOutput();
     room->OptionsOutput();
     cout << "Press q to quit." << endl;
+    cout << "\n";
     cout << "Choose an option: ";
     cin >> choice;
     if (choice == "n" && room->GetNorth() != nullptr) {
@@ -31,7 +33,7 @@ bool takeInput(shared_ptr<Room>& room) {
         return true;
     }
     else {
-        cout << "Invalid input or no room in that direction." << endl;
+        cout << "\n>>>  Invalid input or no room in that direction.  <<<" << endl;
     }
     return false;
 }
