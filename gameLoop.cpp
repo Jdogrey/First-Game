@@ -33,10 +33,14 @@ void lobbyLoop() {
     while(!exit) {
         cout << "\n" << descMap[currentRoom->getId()] << endl;
         exit = takeInput(currentRoom);
+        if (currentRoom->getType() == "Starting Room") {
+            gameLoop();
+            currentRoom = respawnRoom;
+        }
     }
 }
 
-void gameLoop() {
+void gameLoop(shared_ptr<Room> startingRoom) {
     
 }
 

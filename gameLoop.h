@@ -7,6 +7,6 @@ using namespace std;
 
 void lobbyLoop();
 
-void gameLoop();
+void gameLoop(shared_ptr<Room> startingRoom);
 
 #endif // GAMELOOP_H
