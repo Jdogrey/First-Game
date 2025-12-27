@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "Objects/room.h"
+
 using namespace std;
 
 void lobbyLoop();

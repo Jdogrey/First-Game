@@ -24,7 +24,7 @@ bool test() {
     shared_ptr<Room> hallRoom = make_shared<HallRoom>(2, "Hall Room 1", NORTH);
     shared_ptr<Room> bendHall = make_shared<BendHall>(3, "Bend Hall 1", WEST);
     shared_ptr<Room> crossRoom = make_shared<CrossRoom>(4, "Cross Room 1");
-    GameMap gameMap = GameMap(startingRoom);
+    GameMap gameMap = GameMap(startingRoom, NORMAL);
     gameMap.SetupRoom(0, 1, tRoom);        // North of starting room
     gameMap.SetupRoom(-1, 1, hallRoom);     // West of T-Room
     gameMap.SetupRoom(0, -1, bendHall);     // South of starting Room

@@ -32,6 +32,7 @@ class Room {
     std::string getName() const { return name; }
     virtual std::string getType() const = 0;
     virtual bool isPlaceholder() const = 0;
+    virtual bool isRoom() const = 0;
     void SetWest(std::shared_ptr<Room> room) { west = room; }
     void SetEast(std::shared_ptr<Room> room) { east = room; }
     void SetNorth(std::shared_ptr<Room> room) { north = room; }
@@ -52,6 +53,7 @@ class PlaceholderRoom : public Room {
     PlaceholderRoom() : Room() {}
     std::string getType() const override { return "Placeholder"; }
     bool isPlaceholder() const override { return true; }
+    bool isRoom() const override { return true; }
 
     void GameOutput() const override;
 };
@@ -67,6 +69,7 @@ class StartingRoom : public Room {
     }
     std::string getType() const override { return "Starting"; }
     bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return false; }
     
     void GameOutput() const override;
 };
@@ -100,6 +103,7 @@ class THall : public Room {
     }
     std::string getType() const override { return "T-Hall"; }
     bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return false; }
 
     void GameOutput() const override;
 };
@@ -109,6 +113,8 @@ class TRoom : public THall {
     TRoom() : THall() {}
     TRoom(int id, const std::string& name, Orientation ori) : THall(id, name, ori) {}
     std::string getType() const override { return "T-Room"; }
+    bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return true; }
 
     void GameOutput() const override;
 };
@@ -138,6 +144,7 @@ class HallRoom : public Room {
     }
     std::string getType() const override { return "Hall"; }
     bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return false; }
     
     void GameOutput() const override;
 };
@@ -147,6 +154,8 @@ class TwoEntranceRoom : public HallRoom {
     TwoEntranceRoom() : HallRoom() {}
     TwoEntranceRoom(int id, const std::string& name, Orientation ori) : HallRoom(id, name, ori) {}
     std::string getType() const override { return "Two-Entrance"; }
+    bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return true; }
 
     void GameOutput() const override;
 };
@@ -176,6 +185,7 @@ class BendHall : public Room {
     }
     std::string getType() const override { return "Bend"; }
     bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return false; }
     
     void GameOutput() const override;
 };
@@ -185,6 +195,8 @@ class BendRoom : public BendHall {
     BendRoom() : BendHall() {}
     BendRoom(int id, const std::string& name, Orientation ori) : BendHall(id, name, ori) {}
     std::string getType() const override { return "Bend Room"; }
+    bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return true; }
 
     void GameOutput() const override;
 };
@@ -200,6 +212,7 @@ class CrossRoom : public Room {
     }
     std::string getType() const override { return "Cross"; }
     bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return false; }
     
     void GameOutput() const override;
 };
@@ -210,6 +223,7 @@ class FourEntranceRoom : public CrossRoom {
     FourEntranceRoom(int id, const std::string& name) : CrossRoom(id, name) {}
     std::string getType() const override { return "Four-Entrance"; }
     bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return true; }
     
     void GameOutput() const override;
 };
@@ -235,6 +249,7 @@ class DeadEnd : public Room {
     }
     std::string getType() const override { return "Dead-End"; }
     bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return false; }
     
     void GameOutput() const override;
 };
@@ -245,6 +260,7 @@ class DeadEndRoom : public DeadEnd {
     DeadEndRoom(int id, const std::string& name, Orientation ori) : DeadEnd(id, name, ori) {}
     std::string getType() const override { return "Dead-End Room"; }
     bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return true; }
     
     void GameOutput() const override;
 };
@@ -259,6 +275,7 @@ class ShopRoom : public DeadEndRoom {
 
     std::string getType() const override { return "Shop"; }
     bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return true; }
     
     void GameOutput() const override;
     //void OptionsOutput() const override;
@@ -270,6 +287,7 @@ class BossRoom : public DeadEndRoom {
     BossRoom(int id, const std::string& name, Orientation ori) : DeadEndRoom(id, name, ori) {}
     std::string getType() const override { return "Boss"; }
     bool isPlaceholder() const override { return false; }
+    bool isRoom() const override { return true; }
     
     void GameOutput() const override;
     //void OptionsOutput() const override;

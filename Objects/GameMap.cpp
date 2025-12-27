@@ -9,6 +9,7 @@ using namespace std;
 
 void GameMap::AddRoom(int x, int y, const std::shared_ptr<Room>& room) {
     rooms[{x, y}] = room;
+    roomCount++;
 }
 
 shared_ptr<Room> GameMap::GetRoom(int x, int y) const {

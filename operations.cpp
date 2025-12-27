@@ -3,9 +3,11 @@
 #include <string>
 #include <algorithm>
 #include <cctype>
+#include <random>
 
 #include "operations.h"
 #include "Objects/room.h"
+#include "Objects/GameMap.h"
 
 using namespace std;
 
@@ -21,7 +23,7 @@ bool takeInput(shared_ptr<Room>& room) {
     room->OptionsOutput();
     cout << "Enter q to quit.";
     if(room->getName() == "Start Run Room") {
-        cout << " Enter d to drop into the dungeon.";
+        cout << " Enter d to touch the pylon drop into the dungeon.";
     }
     cout << "\n";
     cout << "Choose an option: ";
@@ -44,7 +46,7 @@ bool takeInput(shared_ptr<Room>& room) {
         cout << "Quitting the game." << endl;
         return true;
     }
-    else if ((choice == "d" || choice == "drop") && room->getName() == "Start Run Room") {
+    else if ((choice == "d" || choice == "drop" || choice == "t") && room->getName() == "Start Run Room") {
         cout << "Dropping into the dungeon..." << endl;
         room = make_shared<StartingRoom>(0, "Starting Room");
         return false;
@@ -95,4 +97,88 @@ bool takeInput(shared_ptr<Room>& room, int& x, int& y) {
         cout << "\n>>>  Invalid input or no room in that direction.  <<<" << endl;
     }
     return false;
+}
+
+shared_ptr<Room> generateRoom(shared_ptr<GameMap> gameMap, int x, int y) {
+    static random_device rd;
+    static mt19937 rng(rd());
+
+    // variables to determine room type
+
+    int maxEntries = 0;
+    int minEntries = 0;
+    auto north = gameMap->GetRoom(x, y + 1);
+    auto east = gameMap->GetRoom(x + 1, y);
+    auto south = gameMap->GetRoom(x, y - 1);
+    auto west = gameMap->GetRoom(x - 1, y);
+    bool northConnected = false;
+    bool eastConnected = false;
+    bool southConnected = false;
+    bool westConnected = false;
+
+    // Check existing adjacent rooms for connections for maximum and minimum entries in new room
+
+    if (north && north->GetSouth()) {
+        minEntries++;
+        northConnected = true;
+    }
+    if (east && east->GetWest()) {
+        minEntries++;
+        eastConnected = true;
+    }
+    if (south && south->GetNorth()) {
+        minEntries++;
+        southConnected = true;
+    }
+    if (west && west->GetEast()) {
+        minEntries++;
+        westConnected = true;
+    }
+
+    maxEntries = minEntries;
+
+    if (!north) maxEntries++;
+    if (!east) maxEntries++;
+    if (!south) maxEntries++;
+    if (!west) maxEntries++;
+
+    // Check if 2 rooms share corners to determine which type of 2 entry room to create
+
+    bool adjacent = false;
+
+    if(maxEntries == 2 && (northConnected && eastConnected) ||
+       (eastConnected && southConnected) ||
+       (southConnected && westConnected) ||
+       (westConnected && northConnected)) {
+        adjacent = true;
+    }
+
+    // Setup rng
+
+    static uniform_int_distribution<> dis(0, 2); 
+
+    int roomType = dis(rng);
+    shared_ptr<Room> newRoom;
+
+    // Cases for room types CURRENTLY PLACEHOLDER NEEDS IMPLEMENTATION
+    // FIXME: Implement actual room generation logic based on min/max entries and roomType
+
+    if(roomType == 0) {
+        newRoom = make_shared<BossRoom>(0, "Generated Boss Room", NORTH);
+    }
+    else if(roomType == 1) {
+        newRoom = make_shared<ShopRoom>(0, "Generated Shop", EAST);
+    }
+    else if(roomType == 2) {
+        newRoom = make_shared<DeadEnd>(0, "Generated Dead End");
+    }
+    else if(roomType == 3) {
+        newRoom = make_shared<DeadEndRoom>(0, "Generated Dead End Room", SOUTH);
+    }
+    else {
+        newRoom = make_shared<TRoom>(0, "Generated Dead End Room", EAST);
+    }
+
+    gameMap->SetupRoom(x, y, newRoom);
+    return newRoom;
 }

@@ -2,6 +2,7 @@
 #include <string>
 #include <memory>
 #include <map>
+#include <random>
 
 #include "gameLoop.h"
 #include "Objects/room.h"
@@ -33,14 +34,30 @@ void lobbyLoop() {
     while(!exit) {
         cout << "\n" << descMap[currentRoom->getId()] << endl;
         exit = takeInput(currentRoom);
-        if (currentRoom->getType() == "Starting Room") {
-            gameLoop();
+        if (currentRoom->getType() == "Starting") {
+            gameLoop(currentRoom, NORMAL);
             currentRoom = respawnRoom;
         }
     }
 }
 
-void gameLoop(shared_ptr<Room> startingRoom) {
+void gameLoop(shared_ptr<Room> startingRoom, Difficulty diff) {
+    shared_ptr<GameMap> gameMap = make_shared<GameMap>(startingRoom, diff);
+
+    shared_ptr<Room> currentRoom = startingRoom;
+    int x = 0;
+    int y = 0;
+    bool exit = false;
     
+    while(!exit) {
+        exit = takeInput(currentRoom, x, y);
+        if (currentRoom->isPlaceholder()) {
+            // Generate new room logic here
+            shared_ptr<Room> newRoom = make_shared<DeadEndRoom>(3, "Generated Dead-End Room", NORTH); // Example room
+            gameMap->SetupRoom(x, y, newRoom);
+            currentRoom = newRoom;
+        }
+        gameMap->SetupRoom(x, y, currentRoom);
+    }
 }
 
