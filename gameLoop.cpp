@@ -18,9 +18,9 @@ map<int, string> descMap = {
 };
 
 void lobbyLoop() {
-    shared_ptr<Room> respawnRoom = make_shared<DeadEndRoom>(0, "Respawn Room", EAST);
-    shared_ptr<Room> lobby = make_shared<TwoEntranceRoom>(1, "Lobby", NORTH);
-    shared_ptr<Room> startRunRoom = make_shared<DeadEndRoom>(2, "Start Run Room", WEST);
+    shared_ptr<Room> respawnRoom = make_shared<DeadEndRoom>(0, "Respawn Room", Orientation::EAST);
+    shared_ptr<Room> lobby = make_shared<TwoEntranceRoom>(1, "Lobby", Orientation::NORTH);
+    shared_ptr<Room> startRunRoom = make_shared<DeadEndRoom>(2, "Start Run Room", Orientation::WEST);
 
     respawnRoom->SetEast(lobby);
     lobby->SetWest(respawnRoom);
@@ -53,7 +53,7 @@ void gameLoop(shared_ptr<Room> startingRoom, Difficulty diff) {
         exit = takeInput(currentRoom, x, y);
         if (currentRoom->isPlaceholder()) {
             // Generate new room logic here
-            shared_ptr<Room> newRoom = make_shared<DeadEndRoom>(3, "Generated Dead-End Room", NORTH); // Example room
+            shared_ptr<Room> newRoom = make_shared<DeadEndRoom>(3, "Generated Dead-End Room", Orientation::NORTH); // Example room
             gameMap->SetupRoom(x, y, newRoom);
             currentRoom = newRoom;
         }

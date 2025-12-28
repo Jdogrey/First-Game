@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "Objects/room.h"
+#include "Objects/GameMap.h"
 
 using namespace std;
 

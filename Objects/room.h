@@ -4,11 +4,12 @@
 #include <string>
 #include <memory>
 
-enum Orientation {
+enum class Orientation {
     NORTH,
     EAST,
     SOUTH,
-    WEST
+    WEST,
+    COUNT
 };
 
 class Room {
@@ -79,25 +80,27 @@ class THall : public Room {
     THall() : Room() {}
     THall(int id, const std::string& name, Orientation ori) : Room(id, name) {
         switch(ori) {
-            case NORTH:
+            case Orientation::NORTH:
                 SetWest(std::make_shared<PlaceholderRoom>());
                 SetEast(std::make_shared<PlaceholderRoom>());
                 SetSouth(std::make_shared<PlaceholderRoom>());
                 break;
-            case EAST:
+            case Orientation::EAST:
                 SetNorth(std::make_shared<PlaceholderRoom>());
                 SetSouth(std::make_shared<PlaceholderRoom>());
                 SetWest(std::make_shared<PlaceholderRoom>());
                 break;
-            case SOUTH:
+            case Orientation::SOUTH:
                 SetNorth(std::make_shared<PlaceholderRoom>());
                 SetEast(std::make_shared<PlaceholderRoom>());
                 SetWest(std::make_shared<PlaceholderRoom>());
                 break;
-            case WEST:
+            case Orientation::WEST:
                 SetNorth(std::make_shared<PlaceholderRoom>());
                 SetEast(std::make_shared<PlaceholderRoom>());
                 SetSouth(std::make_shared<PlaceholderRoom>());
+                break;
+            default:
                 break;
         }
     }
@@ -124,21 +127,23 @@ class HallRoom : public Room {
     HallRoom() : Room() {}
     HallRoom(int id, const std::string& name, Orientation ori) : Room(id, name) {
         switch(ori) {
-            case NORTH:
+            case Orientation::NORTH:
                 SetEast(std::make_shared<PlaceholderRoom>());
                 SetWest(std::make_shared<PlaceholderRoom>());
                 break;
-            case SOUTH:
+            case Orientation::SOUTH:
                 SetEast(std::make_shared<PlaceholderRoom>());
                 SetWest(std::make_shared<PlaceholderRoom>());
                 break;
-            case EAST:
+            case Orientation::EAST:
                 SetNorth(std::make_shared<PlaceholderRoom>());
                 SetSouth(std::make_shared<PlaceholderRoom>());
                 break;
-            case WEST:
+            case Orientation::WEST:
                 SetNorth(std::make_shared<PlaceholderRoom>());
                 SetSouth(std::make_shared<PlaceholderRoom>());
+                break;
+            default:
                 break;
         }
     }
@@ -165,21 +170,23 @@ class BendHall : public Room {
     BendHall() : Room() {}
     BendHall(int id, const std::string& name, Orientation ori) : Room(id, name) {
         switch(ori) {
-            case NORTH:
+            case Orientation::NORTH:
                 SetNorth(std::make_shared<PlaceholderRoom>());
                 SetEast(std::make_shared<PlaceholderRoom>());
                 break;
-            case EAST:
+            case Orientation::EAST:
                 SetEast(std::make_shared<PlaceholderRoom>());
                 SetSouth(std::make_shared<PlaceholderRoom>());
                 break;
-            case SOUTH:
+            case Orientation::SOUTH:
                 SetSouth(std::make_shared<PlaceholderRoom>());
                 SetWest(std::make_shared<PlaceholderRoom>());
                 break;
-            case WEST:
+            case Orientation::WEST:
                 SetWest(std::make_shared<PlaceholderRoom>());
                 SetNorth(std::make_shared<PlaceholderRoom>());
+                break;
+            default:
                 break;
         }
     }
@@ -233,17 +240,19 @@ class DeadEnd : public Room {
     DeadEnd() : Room() {}
     DeadEnd(int id, const std::string& name, Orientation ori) : Room(id, name) {
         switch(ori) {
-            case NORTH:
+            case Orientation::NORTH:
                 SetNorth(std::make_shared<PlaceholderRoom>());
                 break;
-            case EAST:
+            case Orientation::EAST:
                 SetEast(std::make_shared<PlaceholderRoom>());
                 break;
-            case SOUTH:
+            case Orientation::SOUTH:
                 SetSouth(std::make_shared<PlaceholderRoom>());
                 break;
-            case WEST:
+            case Orientation::WEST:
                 SetWest(std::make_shared<PlaceholderRoom>());
+                break;
+            default:
                 break;
         }
     }

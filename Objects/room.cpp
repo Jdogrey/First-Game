@@ -4,6 +4,21 @@
 
 using namespace std;
 
+Orientation& operator++(Orientation& ori) {
+    using UnderlyingType = underlying_type_t<Orientation>;
+    ori = static_cast<Orientation>(static_cast<UnderlyingType>(ori) + 1);
+    if(ori == Orientation::COUNT) {
+        ori = Orientation::NORTH;
+    }
+    return ori;
+}
+
+Orientation operator++(Orientation& ori, int) {
+    Orientation copy = ori;
+    ++ori;
+    return copy;
+}
+
 void Room::GameOutput() const {
     cout << "There are rooms in the following directions: ";
     bool first = true;

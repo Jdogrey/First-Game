@@ -26,7 +26,7 @@ Objects/GameMap.o: Objects/GameMap.cpp Objects/GameMap.h Objects/room.h
 Objects/room.o: Objects/room.cpp Objects/room.h
 json11/json11.o: json11/json11.cpp json11/json11.hpp
 gameLoop.o: gameLoop.cpp gameLoop.h Objects/room.h Objects/GameMap.h operations.h
-operations.o: operations.cpp operations.h Objects/room.h
+operations.o: operations.cpp operations.h Objects/room.h Objects/GameMap.h
 
 #clean target to remove compiled files
 
