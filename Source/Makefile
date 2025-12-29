@@ -1,36 +1,34 @@
-# Setting all the variables I need
-CXX = g++
-CXXFLAGS = -Wall -Werror -g 
+# Makefile for building the game using MSVC. I'll have to learn and experiment with MSVC.
 
-# Objects
+# Compiler and flags
+CXX = cl
+CXXFLAGS = /nologo /W3 /EHsc /MD /Zi
 
-OBJS = loader.o main.o Objects/GameMap.o Objects/room.o json11/json11.o gameLoop.o operations.o
+# Source files
+SRC = loader.cpp main.cpp \
+      Objects/GameMap.cpp Objects/room.cpp \
+      json11/json11.cpp \
+      gameLoop.cpp operations.cpp
 
-all: game.exe
+# Object files (replace .cpp with .obj)
+OBJS = $(SRC:.cpp=.obj)
 
-# Target executable
+# Executable
+EXE = ..\game.exe
 
-game.exe: $(OBJS)
-	$(CXX) $(CXXFLAGS) -static-libgcc -static-libstdc++ -Wl,-Bstatic -lwinpthread -Wl,-Bdynamic -o ../game.exe $(OBJS)
+# Default target
+all: $(EXE)
 
-# Generic rule for compiling .cpp files to .o files
+# Link the executable
+$(EXE): $(OBJS)
+	$(CXX) /nologo $(OBJS) /Fe:$(EXE)
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+# Compile .cpp to .obj
+%.obj: %.cpp
+	$(CXX) $(CXXFLAGS) /c $< /Fo$@
 
-# Dependencies
-
-loader.o: loader.cpp
-main.o: main.cpp Objects/room.h Objects/GameMap.h gameLoop.h
-Objects/GameMap.o: Objects/GameMap.cpp Objects/GameMap.h Objects/room.h
-Objects/room.o: Objects/room.cpp Objects/room.h
-json11/json11.o: json11/json11.cpp json11/json11.hpp
-gameLoop.o: gameLoop.cpp gameLoop.h Objects/room.h Objects/GameMap.h operations.h
-operations.o: operations.cpp operations.h Objects/room.h Objects/GameMap.h
-
-#clean target to remove compiled files
-
+# Clean up
 clean:
-	rm -f $(OBJS) game.exe
+	del /Q $(OBJS) $(EXE)
 
 .PHONY: all clean
