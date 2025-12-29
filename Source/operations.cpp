@@ -67,7 +67,7 @@ bool takeInput(shared_ptr<Room>& room, int& x, int& y) {
     cout << "\n";
     room->GameOutput();
     room->OptionsOutput();
-    cout << "Press q to quit." << endl;
+    cout << "Press q to leave this run and return to the lobby." << endl;
     cout << "\n";
     cout << "Choose an option: ";
     cin >> choice;
@@ -155,7 +155,7 @@ shared_ptr<Room> generateRoom(shared_ptr<GameMap> gameMap, int x, int y) {
 
     bool adjacent = false;
 
-    if(maxEntries == 2 && ((northConnected && eastConnected) ||
+    if(minEntries == 2 && ((northConnected && eastConnected) ||
        (eastConnected && southConnected) ||
        (southConnected && westConnected) ||
        (westConnected && northConnected))) {

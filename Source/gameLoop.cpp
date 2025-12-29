@@ -52,12 +52,12 @@ void gameLoop(shared_ptr<Room> startingRoom, Difficulty diff) {
     while(!exit) {
         exit = takeInput(currentRoom, x, y);
         if (currentRoom->isPlaceholder()) {
-            // Generate new room logic here
-            shared_ptr<Room> newRoom = make_shared<DeadEndRoom>(3, "Generated Dead-End Room", Orientation::NORTH); // Example room
+            
+            shared_ptr<Room> newRoom = generateRoom(gameMap, x, y);
             gameMap->SetupRoom(x, y, newRoom);
             currentRoom = newRoom;
         }
-        gameMap->SetupRoom(x, y, currentRoom);
+        
     }
 }
 
