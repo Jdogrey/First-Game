@@ -4,4 +4,4 @@ This is just a small project that I am making which is a text based game that ru
 
 ## Download
 
-You can download the files [here](https://github.com/Jdogrey/First-Game/releases/tag/v0.1.0-alpha).
+You can download the files [here](https://github.com/Jdogrey/First-Game/releases/tag/v0.1.1-alpha).
