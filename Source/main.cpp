@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <windows.h>
 
 #include "Objects/room.h"
 #include "Objects/GameMap.h"
@@ -11,7 +12,8 @@ using namespace std;
 bool test(); 
 
 int main() {
-    test();
+    SetDllDirectoryA("dlls");
+    // test();
     lobbyLoop();
     return 0;
 }
