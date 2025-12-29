@@ -11,7 +11,7 @@ all: game.exe
 # Target executable
 
 game.exe: $(OBJS)
-	$(CXX) $(CXXFLAGS) -static-libgcc -static-libstdc++ -o ../game.exe $(OBJS)
+	$(CXX) $(CXXFLAGS) -static-libgcc -static-libstdc++ -Wl,-Bstatic -lwinpthread -Wl,-Bdynamic -o ../game.exe $(OBJS)
 
 # Generic rule for compiling .cpp files to .o files
 
