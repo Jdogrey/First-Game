@@ -7,7 +7,7 @@
 #include "room.h"
 
 enum Difficulty {
-    EASY,
+    EASY = -1,
     NORMAL,
     HARD,
     VERY_HARD,

@@ -5,10 +5,7 @@ CXX = cl
 CXXFLAGS = /nologo /W3 /EHsc /MD /Zi
 
 # Source files
-SRC = loader.cpp main.cpp \
-      Objects/GameMap.cpp Objects/room.cpp \
-      json11/json11.cpp \
-      gameLoop.cpp operations.cpp
+SRC = loader.cpp main.cpp Objects\GameMap.cpp Objects\room.cpp Objects\item.cpp json11\json11.cpp gameLoop.cpp operations.cpp
 
 # Object files (replace .cpp with .obj)
 OBJS = $(SRC:.cpp=.obj)
