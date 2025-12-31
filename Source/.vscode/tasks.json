@@ -15,6 +15,7 @@
                 "Objects/GameMap.cpp",
                 "Objects/room.cpp",
                 "Objects/item.cpp",
+                "Objects/player.cpp",
                 "loader.cpp",
                 "gameLoop.cpp",
                 "operations.cpp",
