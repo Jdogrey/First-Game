@@ -106,6 +106,7 @@ class Consumable : public Item {
     void SetMaxHeld(int newMaxHeld) { maxHeld = newMaxHeld; }
 
     virtual void pickUp();
+    virtual void use();
 
     virtual string getType() const override { return "Consumable"; }
 };
@@ -177,6 +178,8 @@ class LevelUpItem : public Consumable {
 };
 
 class PlayerLevelItem : public Consumable {
+
+
     
     public:
 

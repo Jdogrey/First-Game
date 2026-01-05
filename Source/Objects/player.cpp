@@ -17,10 +17,17 @@ bool Player::LevelUpAttacker() {
     }
     maxHP += hpIncrease;
     attack += attackerLevel; 
-    attackCoefficient = static_cast<int>(ceil(attackerLevel / 3.0));
     defense += 2; 
     critRate += 2; 
     critDamage += 4; 
+    skillPoints = static_cast<int>(skillPoints * 1.1);
+
+    if(attackerLevel <= 15) {
+        attackCoefficient *= 1.05;
+    }
+    else {
+        attackCoefficient *= 1.02;
+    }
 
     return true;
 
@@ -42,6 +49,7 @@ bool Player::LevelUpTank() {
     defense += 2 + static_cast<int>(ceil(tankLevel / 2.0)); 
     critRate += 1; 
     critDamage += 2; 
+    skillPoints = static_cast<int>(skillPoints * 1.1);
 
     return true;
 
@@ -63,6 +71,7 @@ bool Player::LevelUpMage() {
     defense += 1; 
     critRate += 2; 
     critDamage += 3; 
+    skillPoints = static_cast<int>(skillPoints * 1.13);
 
     return true;
 

@@ -1,6 +1,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <climits>
+
 #include "item.h"
 
 /* Players can have 4 different level up types and damage types.
@@ -20,22 +22,23 @@ class Player {
     int maxHP;
     int currentHP;
     int baseHP;
-    int attack;
-    int attackCoefficient;
-    int tankAttack;
-    int defense;
-    int magicAttack;
-    int critRate;
+    int attack; // Attack for attacker type
+    double attackCoefficient; // Coefficient for attacker type which allows attacker to scale up damage more. Will be calculated as (attack * ceil(1 + attackCoefficient / 100.0))
+    int tankAttack; // Attack for tank type
+    int defense; // Defense for all types. More relevant for tank type
+    int magicAttack; // Attack for mage type
+    int critRate; 
     int critDamage;
     int attackerLevel;
     int tankLevel;
     int mageLevel;
-    int balancedLevel;
-    int maxLevel = 20;
+    // int balancedLevel; // Might put off use of balanced type for now. It isn't really fitting in with the current design. I might instead make the balanced levels a special upgrade.
+    int maxLevel = INT_MAX;
+    int skillPoints;
 
     public:
 
-    Player() : maxHP(100), currentHP(100), baseHP(100), attack(10), attackCoefficient(2), tankAttack(10), defense(5), magicAttack(10), critRate(5), critDamage(20), attackerLevel(1), tankLevel(1), mageLevel(1), balancedLevel(1) {}
+    Player() : maxHP(100), currentHP(100), baseHP(100), attack(10), attackCoefficient(1), tankAttack(10), defense(5), magicAttack(10), critRate(5), critDamage(20), attackerLevel(1), tankLevel(1), mageLevel(1), skillPoints(200) {}
 
     int GetMaxHP() const { return maxHP; }
     int GetCurrentHP() const { return currentHP; }
@@ -49,7 +52,7 @@ class Player {
     int GetAttackerLevel() const { return attackerLevel; }
     int GetTankLevel() const { return tankLevel; }
     int GetMageLevel() const { return mageLevel; }
-    int GetBalancedLevel() const { return balancedLevel; }
+    // int GetBalancedLevel() const { return balancedLevel; }
 
     void SetMaxHP(int newMaxHP) { maxHP = newMaxHP; }
     void SetCurrentHP(int newCurrentHP) { currentHP = newCurrentHP; }
@@ -63,14 +66,14 @@ class Player {
     void SetAttackerLevel(int newAttackerLevel) { attackerLevel = newAttackerLevel; }
     void SetTankLevel(int newTankLevel) { tankLevel = newTankLevel; }
     void SetMageLevel(int newMageLevel) { mageLevel = newMageLevel; }
-    void SetBalancedLevel(int newBalancedLevel) { balancedLevel = newBalancedLevel; }
+    // void SetBalancedLevel(int newBalancedLevel) { balancedLevel = newBalancedLevel; }
 
     bool LevelUpAttacker();
     bool LevelUpTank();
     bool LevelUpMage();
-    bool LevelUpBalanced();
+    // bool LevelUpBalanced();
 
-    void DealDamage(int damage, int enemyDefense);
+    void DealDamage(int damage, int enemyDefense, string damageType); 
     void TakeDamage(int damage); // may also need monster class.
     bool isCrit() const;
 
