@@ -4,10 +4,13 @@
 #include <string>
 
 #include "GameMap.h"
+#include "Player.h"
 
 using namespace std;
 
 class Item {
+    
+    protected:
     
     int id;
     string name;
@@ -15,7 +18,7 @@ class Item {
     int diffInt;
     int level;
     bool plus;
-    float levelUp = 1.2f;
+    double levelUpMult = 1.2;
 
     public:
 
@@ -33,7 +36,7 @@ class Item {
     void SetDifficulty(Difficulty newDiff) { diffInt = static_cast<int>(newDiff); } 
     void SetLevel(int newLevel) { level = newLevel; }
     
-    virtual bool levelUp();
+    virtual bool levelUp() { name += " +"; plus = true; return true; }
 
     virtual string getType() const = 0;
 };
@@ -50,6 +53,8 @@ class Weapon : public Item {
     int GetAttack() const { return atk; }
     void SetAttack(int newAtk) { atk = newAtk; }
 
+    bool levelUp() override;
+
     virtual string getType() const override { return "Weapon"; }
 };
 
@@ -64,6 +69,8 @@ class Armor : public Item {
 
     int GetDefense() const { return def; }
     void SetDefense(int newDef) { def = newDef; }
+
+    bool levelUp() override;
 
     virtual string getType() const override { return "Armor"; }
 };
@@ -85,6 +92,7 @@ class OffHandItem : public Item {
     int GetSpecial() const { return special; }
     void SetSpecial(int newSpecial) { special = newSpecial; }
 
+    bool levelUp() override;
 
     virtual string getType() const override { return "OffHandItem"; }
 };
@@ -124,6 +132,10 @@ class HealingItem : public Consumable {
     int GetHealAmount() const { return healAmount; }
     void SetHealAmount(int newHealAmount) { healAmount = newHealAmount; }
 
+    bool levelUp() override;
+
+    void use(Player& player);
+
     virtual string getType() const override { return "Healing Item"; }
 };
 
@@ -139,6 +151,8 @@ class Scroll : public Consumable {
 
     string GetSpellName() const { return spellName; }
     void SetSpellName(const string& newSpellName) { spellName = newSpellName; }
+
+    void use(Player& player);
 
     virtual string getType() const override { return "Scroll"; }
 };
@@ -163,6 +177,10 @@ class BuffItem : public Consumable {
     void SetBuffAmount(int newBuffAmount) { buffAmount = newBuffAmount; }
     void SetDuration(int newDuration) { duration = newDuration; }
 
+    bool levelUp() override;
+
+    void use(Player& player);
+
     virtual string getType() const override { return "Buff Item"; }
 };
 
@@ -174,12 +192,12 @@ class LevelUpItem : public Consumable {
     LevelUpItem(int id, const string& name, int value, Difficulty diff, int level, int maxHeld) : Consumable(id, name, value, diff, level, maxHeld) {}
     LevelUpItem(int id, const string& name, int value, Difficulty diff, int level, int held, int maxHeld) : Consumable(id, name, value, diff, level, held, maxHeld) {}
 
+    void use(Item& item);
+
     virtual string getType() const override { return "Level Up Item"; }
 };
 
 class PlayerLevelItem : public Consumable {
-
-
     
     public:
 
@@ -187,6 +205,9 @@ class PlayerLevelItem : public Consumable {
     PlayerLevelItem(int id, const string& name, int value, Difficulty diff, int level, int maxHeld) : Consumable(id, name, value, diff, level, maxHeld) {}
     PlayerLevelItem(int id, const string& name, int value, Difficulty diff, int level, int held, int maxHeld) : Consumable(id, name, value, diff, level, held, maxHeld) {}
 
+    void use(Player& player);
+
     virtual string getType() const override { return "Player Level Item"; }
 };
+
 #endif // ITEM_H
