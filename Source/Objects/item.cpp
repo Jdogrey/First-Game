@@ -34,4 +34,3 @@ bool BuffItem::levelUp() {
     duration = static_cast<int>(duration * levelUpMult);
     return true;
 }
-

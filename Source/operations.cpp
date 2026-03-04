@@ -631,3 +631,4 @@ shared_ptr<Room> generateRoom(shared_ptr<GameMap> gameMap, int x, int y) {
 
     return newRoom;
 }
+

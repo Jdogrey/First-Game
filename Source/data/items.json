@@ -1,0 +1,11 @@
+[
+    {
+        "id": 0,
+        "name": "Health Potion",
+        "value": 50,
+        "level": 1,
+        "type": "HealingItem",
+        "healAmount": 50,
+        "maxHeld": 5
+    }
+]

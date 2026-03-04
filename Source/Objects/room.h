@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 
 enum class Orientation {
     NORTH,
@@ -42,6 +43,7 @@ class Room {
     std::shared_ptr<Room> GetEast() const { return east; }
     std::shared_ptr<Room> GetNorth() const { return north; }
     std::shared_ptr<Room> GetSouth() const { return south; }
+    std::vector<int> items; // vector of item IDs in the room
 
     // Outputs for gameplay
 
